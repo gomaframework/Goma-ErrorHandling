@@ -4,8 +4,6 @@ use ErrorException;
 use Goma\ENV\GomaENV;
 use Throwable;
 
-defined("IN_GOMA") OR die();
-
 /**
  * ExceptionManager provides codes for exceptions.
  *

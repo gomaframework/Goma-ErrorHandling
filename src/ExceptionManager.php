@@ -285,7 +285,7 @@ class ExceptionManager
         }
 
         $content = file_get_contents(static::getTemplateForException());
-        $content = str_replace('{BASE_URI}', BASE_URI, $content);
+        $content = str_replace('{BASE_URI}', "", $content);
         $content = str_replace('{$errcode}', $exception->getCode(), $content);
         $content = str_replace('{$errname}', get_class($exception), $content);
         $content = str_replace('{$errdetails}', $details, $content);

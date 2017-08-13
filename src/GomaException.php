@@ -4,7 +4,7 @@ namespace Goma\Error;
 
 use Exception;
 
-defined("IN_GOMA") OR die();
+defined("IN_GOMA") OR die("died");
 
 /**
  * BaseClass for all Goma-Exceptions. Goma-Exceptions have to additional features:

@@ -52,12 +52,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/gomaframework/GomaUnitTest.git",
-                "reference": "4f3f6e6360597a7e9eb052fdeb29ba2be3346c1f"
+                "reference": "d9b71151e3837586501b482cddb19cec1424a138"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/gomaframework/GomaUnitTest/zipball/4f3f6e6360597a7e9eb052fdeb29ba2be3346c1f",
-                "reference": "4f3f6e6360597a7e9eb052fdeb29ba2be3346c1f",
+                "url": "https://api.github.com/repos/gomaframework/GomaUnitTest/zipball/d9b71151e3837586501b482cddb19cec1424a138",
+                "reference": "d9b71151e3837586501b482cddb19cec1424a138",
                 "shasum": ""
             },
             "require": {
@@ -80,7 +80,7 @@
                 }
             ],
             "description": "GomaUnitTest is a wrapper class to support PHP 5 and PHP 7 for tests. In addition it gives some helper asserts.",
-            "time": "2017-08-12 10:19:04"
+            "time": "2017-08-13 23:25:35"
         }
     ],
     "packages-dev": [],

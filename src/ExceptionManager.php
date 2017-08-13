@@ -4,7 +4,7 @@ use ErrorException;
 use Goma\ENV\GomaENV;
 use Throwable;
 
-defined("IN_GOMA") OR die("died");
+defined("IN_GOMA") OR die();
 
 /**
  * ExceptionManager provides codes for exceptions.
@@ -300,6 +300,8 @@ class ExceptionManager
             HTTPResponse::sendHeader();*/
             // TODO: Replace with HTTP-Package
             echo $content;
+        } else {
+            echo $exception->getCode() . ":" . $exception->getMessage() . "\n";
         }
 
         exit($exception->getCode() != 0 ? $exception->getCode() : 8);

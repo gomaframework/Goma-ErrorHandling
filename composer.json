@@ -1,0 +1,25 @@
+{
+  "name": "goma/goma-error-handling",
+  "description": "GomaErrorHandling provides error-handling methods as well as Exception-Types and codes.",
+  "type": "library",
+  "authors": [
+    {
+      "name": "Goma Team",
+      "email": "team@goma-cms.org"
+    }
+  ],
+  "license": "LGPL-3.0",
+  "minimum-stability": "dev",
+  "require": {
+    "php": ">=5.5.0",
+    "goma/goma-env": "dev-master"
+  },
+  "autoload": {
+    "psr-4": {
+      "Goma\\Error\\": "src/"
+    },
+    "files": [
+      "src/ExceptionManager.php"
+    ]
+  }
+}

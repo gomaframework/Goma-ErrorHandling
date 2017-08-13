@@ -1,0 +1,92 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "ca7b81882fa0864d7f50b6b048642bf6",
+    "packages": [
+        {
+            "name": "goma/goma-env",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://repo.goma-cms.org/scm/goma3/goma-env.git",
+                "reference": "79cb177ac06ffda2828004461d0563d926dce7bb"
+            },
+            "require": {
+                "goma/goma-test-core": "dev-master",
+                "php": ">=5.5.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Goma\\ENV\\": "src/"
+                },
+                "files": [
+                    "src/DefineENV.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "Goma Team",
+                    "email": "team@goma-cms.org"
+                }
+            ],
+            "description": "Goma ENV provides some basic concepts for PHP applications: Constants about FileSystem, central storage directory, cache directory as well as functions to get infos about the current environment.",
+            "time": "2017-08-12 09:02:37"
+        },
+        {
+            "name": "goma/goma-test-core",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/gomaframework/GomaUnitTest.git",
+                "reference": "4f3f6e6360597a7e9eb052fdeb29ba2be3346c1f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/gomaframework/GomaUnitTest/zipball/4f3f6e6360597a7e9eb052fdeb29ba2be3346c1f",
+                "reference": "4f3f6e6360597a7e9eb052fdeb29ba2be3346c1f",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "Goma Team",
+                    "email": "team@goma-cms.org"
+                }
+            ],
+            "description": "GomaUnitTest is a wrapper class to support PHP 5 and PHP 7 for tests. In addition it gives some helper asserts.",
+            "time": "2017-08-12 10:19:04"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "dev",
+    "stability-flags": {
+        "goma/goma-env": 20
+    },
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": {
+        "php": ">=5.5.0"
+    },
+    "platform-dev": []
+}

@@ -337,33 +337,27 @@ class ExceptionManager
     }
 }
 
-class WarningException              extends ErrorException {
-    public $ignorable = true;
-}
+class WarningException              extends ErrorException {}
 class ParseException                extends ErrorException {}
 class NoticeException               extends ErrorException {
-    public $ignorable = true;
+    public $isIgnorable = true;
 }
 class CoreErrorException            extends ErrorException {}
-class CoreWarningException          extends ErrorException {
-    public $ignorable = true;
-}
+class CoreWarningException          extends ErrorException {}
 class CompileErrorException         extends ErrorException {}
 class CompileWarningException       extends ErrorException {}
 class UserErrorException            extends ErrorException {}
-class UserWarningException          extends ErrorException {
-    public $ignorable = true;
-}
+class UserWarningException          extends ErrorException {}
 class UserNoticeException           extends ErrorException {
-    public $ignorable = true;
+    public $isIgnorable = true;
 }
 class StrictException               extends ErrorException {}
 class RecoverableErrorException     extends ErrorException {}
 class DeprecatedException           extends ErrorException {
-    public $ignorable = true;
+    public $isIgnorable = true;
 }
 class UserDeprecatedException       extends ErrorException {
-    public $ignorable = true;
+    public $isIgnorable = true;
 }
 
 set_error_handler(array(ExceptionManager::class, "Goma_ErrorHandler"));

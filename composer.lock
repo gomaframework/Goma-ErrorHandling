@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/gomaframework/Goma-ENV.git",
-                "reference": "cc5d13ef0202ce9aa7d20110fb2c69cb94d090bf"
+                "reference": "bcd2acdb6d707436a7c9575ff7bdda1747153f94"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/gomaframework/Goma-ENV/zipball/cc5d13ef0202ce9aa7d20110fb2c69cb94d090bf",
-                "reference": "cc5d13ef0202ce9aa7d20110fb2c69cb94d090bf",
+                "url": "https://api.github.com/repos/gomaframework/Goma-ENV/zipball/bcd2acdb6d707436a7c9575ff7bdda1747153f94",
+                "reference": "bcd2acdb6d707436a7c9575ff7bdda1747153f94",
                 "shasum": ""
             },
             "require": {
@@ -44,7 +44,7 @@
                 }
             ],
             "description": "Goma ENV provides some basic concepts for PHP applications: Constants about FileSystem, central storage directory, cache directory as well as functions to get infos about the current environment.",
-            "time": "2017-08-13 23:26:07"
+            "time": "2017-08-13 23:31:15"
         },
         {
             "name": "goma/goma-test-core",

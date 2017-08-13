@@ -301,7 +301,7 @@ class ExceptionManager
             // TODO: Replace with HTTP-Package
             echo $content;
         } else {
-            echo $exception->getCode() . ":" . $exception->getMessage() . "\n";
+            echo $exception->getCode() . ":" . $exception->getMessage() . "\n" . $details . "\n";
         }
 
         exit($exception->getCode() != 0 ? $exception->getCode() : 8);

@@ -292,12 +292,13 @@ class ExceptionManager
         $content = str_replace('$uri', $uri, $content);
 
         if(!GomaENV::isCommandLineInterface()) {
-            if (method_exists($exception, "http_status")) {
+            /*if (method_exists($exception, "http_status")) {
                 HTTPResponse::setResHeader($exception->http_status());
             } else {
                 HTTPResponse::setResHeader(500);
             }
-            HTTPResponse::sendHeader();
+            HTTPResponse::sendHeader();*/
+            // TODO: Replace with HTTP-Package
             echo $content;
         }
 

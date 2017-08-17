@@ -197,18 +197,18 @@ class ExceptionManager
     /**
      * This method registers a new exception-handler.
      * Exception-Handlers get all exceptions in advance. By returning true exception-handling of other handlers is stopped.
-     * @param callable $callback
+     * @param string $exceptionHandlerClass class of type ExceptionHandler
      * @param bool $prepend
      */
-    public static function registerExceptionHandler($callback, $prepend = false) {
-        if(!is_callable($callback, true)) {
-            throw new \InvalidArgumentException("Callback must be a valid callback for registerExceptionHandler.");
+    public static function registerExceptionHandler($exceptionHandlerClass, $prepend = false) {
+        if(!is_string($exceptionHandlerClass)) {
+            throw new \InvalidArgumentException("\$exceptionHandlerClass must be a valid classname for registerExceptionHandler.");
         }
 
         if($prepend) {
-            array_unshift(self::$exceptionHandlers, $callback);
+            array_unshift(self::$exceptionHandlers, $exceptionHandlerClass);
         } else {
-            array_push(self::$exceptionHandlers, $callback);
+            array_push(self::$exceptionHandlers, $exceptionHandlerClass);
         }
     }
 
@@ -221,23 +221,13 @@ class ExceptionManager
      * @param $err_line
      * @param null $errcontext
      * @return bool
-     * @throws CompileErrorException
-     * @throws CoreErrorException
-     * @throws CoreWarningException
-     * @throws DeprecatedException
-     * @throws ErrorException
-     * @throws NoticeException
-     * @throws ParseException
-     * @throws RecoverableErrorException
-     * @throws StrictException
-     * @throws UserDeprecatedException
-     * @throws UserErrorException
-     * @throws UserNoticeException
-     * @throws UserWarningException
-     * @throws WarningException
+     * @throws \Exception
      */
-    public static function Goma_ErrorHandler($err_severity, $err_msg, $err_file, $err_line, $errcontext = null) {
-        if (0 === error_reporting()) { return false;}
+    public static function handleError($err_severity, $err_msg, $err_file, $err_line, $errcontext = null)
+    {
+        if (0 === error_reporting()) {
+            return false;
+        }
 
         try {
             switch ($err_severity) {
@@ -273,8 +263,8 @@ class ExceptionManager
                     throw new UserDeprecatedException   ($err_msg, 0, $err_severity, $err_file, $err_line);
             }
         } catch (\Exception $e) {
-            if(isset($e->isIgnorable) && $e->isIgnorable) {
-                self::Goma_ExceptionHandler($e);
+            if (isset($e->isIgnorable) && $e->isIgnorable) {
+                self::handleException($e);
             } else {
                 throw $e;
             }
@@ -285,19 +275,65 @@ class ExceptionManager
     }
 
     /**
+     * Ignorable exceptions are exception, which are not required to be handled, for example: TaskCancelledException
      * @param Throwable $exception
+     * @return bool
      */
-    public static function Goma_ExceptionHandler($exception) {
-        $uri = isset($_SERVER["REQUEST_URI"]) ? $_SERVER["REQUEST_URI"] : (isset($_SERVER["argv"]) ? implode(" ", $_SERVER["argv"]) : null);
-
+    public static function isIgnorable($exception) {
         // check for other error-handlers.
         foreach(self::$exceptionHandlers as $exceptionHandler) {
-            if(call_user_func_array($exceptionHandler, array($exception)) === true) {
-                return;
+            $return = call_user_func_array(array($exceptionHandler, "isIgnorableException"), array($exception)) ;
+            if($return !== null) {
+                return $return;
             }
         }
 
         if(isset($exception->isIgnorable) && $exception->isIgnorable) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Developer presentable exceptions are exceptions, which will be printed in development mode, but are not required
+     * @param Throwable $exception
+     * @return bool
+     */
+    public static function isDeveloperPresentable($exception) {
+        // check for other error-handlers.
+        foreach(self::$exceptionHandlers as $exceptionHandler) {
+            $return = call_user_func_array(array($exceptionHandler, "isDeveloperPresentableException"), array($exception)) ;
+            if($return !== null) {
+                return $return;
+            }
+        }
+
+        if(isset($exception->isDeveloperPresentable) && $exception->isDeveloperPresentable) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * @param Throwable $exception
+     */
+    public static function handleException($exception) {
+        $uri = isset($_SERVER["REQUEST_URI"]) ? $_SERVER["REQUEST_URI"] : (isset($_SERVER["argv"]) ? implode(" ", $_SERVER["argv"]) : null);
+
+        // check for other error-handlers.
+        foreach(self::$exceptionHandlers as $exceptionHandler) {
+            if(call_user_func_array(array($exceptionHandler, "handleException"), array($exception)) === true) {
+                return;
+            }
+        }
+
+        if(self::isDeveloperPresentable($exception) && GomaENV::isDevMode()) {
+            echo $exception->getMessage() . "\n";
+        }
+
+        if(self::isIgnorable($exception)) {
             return;
         }
 
@@ -360,25 +396,35 @@ class ExceptionManager
     }
 }
 
-class WarningException              extends ErrorException {}
+class WarningException              extends ErrorException {
+    public $isIgnorable = true;
+    public $isDeveloperPresentable = true;
+}
 class ParseException                extends ErrorException {}
 class NoticeException               extends ErrorException {
     public $isIgnorable = true;
+    public $isDeveloperPresentable = true;
 }
 class CoreErrorException            extends ErrorException {}
 class CoreWarningException          extends ErrorException {}
 class CompileErrorException         extends ErrorException {}
 class CompileWarningException       extends ErrorException {}
 class UserErrorException            extends ErrorException {}
-class UserWarningException          extends ErrorException {}
+class UserWarningException          extends ErrorException {
+    public $isIgnorable = true;
+    public $isDeveloperPresentable = true;
+}
 class UserNoticeException           extends ErrorException {
     public $isIgnorable = true;
+    public $isDeveloperPresentable = true;
 }
 class StrictException               extends ErrorException {}
 class RecoverableErrorException     extends ErrorException {}
 class DeprecatedException           extends ErrorException {
     public $isIgnorable = true;
+    public $isDeveloperPresentable = true;
 }
 class UserDeprecatedException       extends ErrorException {
     public $isIgnorable = true;
+    public $isDeveloperPresentable = true;
 }

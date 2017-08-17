@@ -275,7 +275,9 @@ class ExceptionManager
     }
 
     /**
-     * Ignorable exceptions are exception, which are not required to be handled, for example: TaskCancelledException
+     * Ignorable exceptions are exceptions, which are not leading to a crash of the system, for example: TaskCancelledException
+     * By default all exceptions are *not* ignorable.
+     *
      * @param Throwable $exception
      * @return bool
      */

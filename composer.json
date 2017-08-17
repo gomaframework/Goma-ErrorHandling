@@ -19,7 +19,7 @@
       "Goma\\Error\\": "src/"
     },
     "files": [
-      "src/ExceptionManager.php"
+      "ExceptionInit.php"
     ]
   }
 }

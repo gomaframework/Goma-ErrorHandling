@@ -8,6 +8,7 @@ defined("IN_GOMA") OR die();
 
 /**
  * ExceptionManager provides codes for exceptions.
+ * In addition it adds default exception and error handler.
  *
  * @package	goma/error
  * @link 	http://goma-cms.org
@@ -322,7 +323,7 @@ class ExceptionManager
      * @param Throwable $e
      * @return string
      */
-    static function getUserDetailsFromException($e) {
+    public static function getUserDetailsFromException($e) {
         $trace = method_exists($e, "getTraceForUser") ? $e->getTraceForUser() : $e->getTraceAsString();
         return static::getExceptionMessageOrClass($e) .
             "\n<br />\nin " . $e->getFile() . " on line ".$e->getLine() . "<br />\n<textarea style=\"width: 100%; height: 300px;\">" . $trace . "</textarea>";
@@ -332,7 +333,7 @@ class ExceptionManager
      * @param Throwable $e
      * @return string
      */
-    static function getExceptionMessageOrClass($e) {
+    public static function getExceptionMessageOrClass($e) {
         return $e->getMessage() ? $e->getMessage() : get_class($e) . ": " . $e->getCode();
     }
 }
@@ -359,6 +360,3 @@ class DeprecatedException           extends ErrorException {
 class UserDeprecatedException       extends ErrorException {
     public $isIgnorable = true;
 }
-
-set_error_handler(array(ExceptionManager::class, "Goma_ErrorHandler"));
-set_exception_handler(array(ExceptionManager::class, "Goma_ExceptionHandler"));

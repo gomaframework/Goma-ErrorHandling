@@ -273,7 +273,11 @@ class ExceptionManager
                     throw new UserDeprecatedException   ($err_msg, 0, $err_severity, $err_file, $err_line);
             }
         } catch (\Exception $e) {
-            self::Goma_ExceptionHandler($e);
+            if(isset($e->isIgnorable) && $e->isIgnorable) {
+                self::Goma_ExceptionHandler($e);
+            } else {
+                throw $e;
+            }
         }
 
         // block PHP's internal Error-Handler

@@ -296,7 +296,9 @@ class ExceptionManager
     }
 
     /**
-     * Developer presentable exceptions are exceptions, which will be printed in development mode, but are not required
+     * Developer presentable exceptions are exceptions, which will be printed in development mode even if ignorable.
+     * By default all exceptions are developer-presentable.
+     *
      * @param Throwable $exception
      * @return bool
      */
@@ -309,11 +311,11 @@ class ExceptionManager
             }
         }
 
-        if(isset($exception->isDeveloperPresentable) && $exception->isDeveloperPresentable) {
-            return true;
+        if(isset($exception->isDeveloperPresentable) && $exception->isDeveloperPresentable == false) {
+            return false;
         }
 
-        return false;
+        return true;
     }
 
     /**
@@ -398,12 +400,10 @@ class ExceptionManager
 
 class WarningException              extends ErrorException {
     public $isIgnorable = true;
-    public $isDeveloperPresentable = true;
 }
 class ParseException                extends ErrorException {}
 class NoticeException               extends ErrorException {
     public $isIgnorable = true;
-    public $isDeveloperPresentable = true;
 }
 class CoreErrorException            extends ErrorException {}
 class CoreWarningException          extends ErrorException {}
@@ -416,15 +416,12 @@ class UserWarningException          extends ErrorException {
 }
 class UserNoticeException           extends ErrorException {
     public $isIgnorable = true;
-    public $isDeveloperPresentable = true;
 }
 class StrictException               extends ErrorException {}
 class RecoverableErrorException     extends ErrorException {}
 class DeprecatedException           extends ErrorException {
     public $isIgnorable = true;
-    public $isDeveloperPresentable = true;
 }
 class UserDeprecatedException       extends ErrorException {
     public $isIgnorable = true;
-    public $isDeveloperPresentable = true;
 }

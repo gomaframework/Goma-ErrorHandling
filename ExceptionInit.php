@@ -10,5 +10,5 @@ use Goma\Error\ExceptionManager;
  * @author 	Goma-Team
  */
 
-set_error_handler(array(ExceptionManager::class, "Goma_ErrorHandler"));
-set_exception_handler(array(ExceptionManager::class, "Goma_ExceptionHandler"));
+set_error_handler(array(ExceptionManager::class, "handleError"));
+set_exception_handler(array(ExceptionManager::class, "handleException"));

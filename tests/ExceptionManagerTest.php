@@ -17,11 +17,8 @@ class ExceptionManagerTest extends GomaUnitTest
      * throw ignorable exception should not interrupt.
      */
     public function testthrowIgnorableException() {
-        try {
-            throw new \Goma\Error\NoticeException();
-        } finally {
-            $this->assertTrue(true);
-        }
+        ExceptionManager::Goma_ExceptionHandler(new \Goma\Error\NoticeException());
+        $this->assertTrue(true);
     }
 
     /**

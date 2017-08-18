@@ -333,8 +333,8 @@ class ExceptionManager
             }
         }
 
-        if(self::isDeveloperPresentable($exception) && GomaENV::isDevMode()) {
-            echo $exception->getMessage() . "\n";
+        if(self::isDeveloperPresentable($exception) && (GomaENV::isDevMode() || GomaENV::isDevModeCLI() || GomaENV::isPHPUnit())) {
+            echo $exception->getMessage() . " in " . $exception->getFile() . " on line " . $exception->getLine() . "\n";
         }
 
         if(self::isIgnorable($exception)) {

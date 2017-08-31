@@ -190,6 +190,13 @@ class ExceptionManager
     const GD_FILE_TOO_BIG = -4010;
 
     /**
+     * This defines if ExceptionManager should treat ignorable errors as critical ones.
+     *
+     * @var bool
+     */
+    public static $shouldThrowIgnorableErrors = false;
+
+    /**
      * third-party exception-handlers.
      */
     protected static $exceptionHandlers = array();
@@ -263,7 +270,7 @@ class ExceptionManager
                     throw new UserDeprecatedException   ($err_msg, 0, $err_severity, $err_file, $err_line);
             }
         } catch (\Exception $e) {
-            if (isset($e->isIgnorable) && $e->isIgnorable) {
+            if (isset($e->isIgnorable) && $e->isIgnorable && !self::$shouldThrowIgnorableErrors) {
                 self::handleException($e);
             } else {
                 throw $e;
@@ -337,7 +344,7 @@ class ExceptionManager
             echo $exception->getMessage() . " in " . $exception->getFile() . " on line " . $exception->getLine() . "\n";
         }
 
-        if(self::isIgnorable($exception)) {
+        if(self::isIgnorable($exception) && self::$shouldThrowIgnorableErrors) {
             return;
         }
 

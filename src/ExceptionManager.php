@@ -344,7 +344,7 @@ class ExceptionManager
             echo $exception->getMessage() . " in " . $exception->getFile() . " on line " . $exception->getLine() . "\n";
         }
 
-        if(self::isIgnorable($exception) && self::$shouldThrowIgnorableErrors) {
+        if(self::isIgnorable($exception) && !self::$shouldThrowIgnorableErrors) {
             return;
         }
 
